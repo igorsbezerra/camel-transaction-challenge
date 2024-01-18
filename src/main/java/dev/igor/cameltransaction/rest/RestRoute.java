@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
+import dev.igor.cameltransaction.dto.RefoundResponse;
 import dev.igor.cameltransaction.dto.TransactionRequest;
 import dev.igor.cameltransaction.dto.TransactionResponse;
 
@@ -40,6 +41,19 @@ public class RestRoute extends RouteBuilder {
                     .code(HttpStatus.CREATED.value())
                     .message("CREATED")
                 .endResponseMessage()
-            .to("direct:post-transactions");
+            .to("direct:post-transactions")
+            .post("/{id}/devolution")
+                .id("rest-transaction-refound")
+                .description("Method responsible to refound transaction")
+                .bindingMode(RestBindingMode.auto)
+
+                .produces(MediaType.APPLICATION_JSON_VALUE)
+                .outType(RefoundResponse.class)
+                
+                .responseMessage()
+                    .code(HttpStatus.OK.value())
+                    .message("OK")
+                .endResponseMessage()
+            .to("direct:refound-transactions");
     }
 }
