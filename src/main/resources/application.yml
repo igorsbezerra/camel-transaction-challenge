@@ -1,0 +1,12 @@
+
+server:
+  port: ${SERVER_PORT:9092}
+
+camel:
+  component:
+    servlet:
+      mapping:
+        contextPath: /*
+
+transaction:
+  url: ${TRANSACTIONS_URL:http://localhost:8082}
